@@ -25,9 +25,9 @@ from typing import Any
 from . import docker_helper
 
 PYTHON_VERSION = "3.12"
-# Adapters installed from a wheel built out of a local checkout's committed HEAD.
+# Adapters installed from a wheel built out of a local checkout's committed HEAD
+# (only for engines with no package on a public registry).
 LOCAL_SOURCES = {
-    "wolfppt-wheel": Path("~/Projects/wolfppt").expanduser(),
     "wolfdocx-wheel": Path("~/Projects/wolfdocx").expanduser(),
 }
 
@@ -167,10 +167,10 @@ ADAPTERS: tuple[AdapterSpec, ...] = (
         "pptx",
         "python",
         "python",
+        ("wolfppt",),
         mode=(
-            "wheel built from the committed HEAD of the local wolfppt source into an isolated "
-            "environment; python-pptx-compatible API: slides[i].shapes (shape_id), "
-            "text_frame.paragraphs[p].runs[r].text = value; save(output)"
+            "python-pptx-compatible API: slides[i].shapes (shape_id), "
+            "text_frame.paragraphs[p].runs[r].text = value; save(output); latest PyPI release"
         ),
     ),
     AdapterSpec(
