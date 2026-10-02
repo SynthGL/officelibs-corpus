@@ -1,0 +1,55 @@
+officelibs-corpus
+
+This repository redistributes Office Open XML test and real-world documents
+collected from the upstream sources below. Each document keeps the license of
+its source; manifest.json records the source, pinned revision, upstream path,
+and SPDX license identifier of every file. License texts are in LICENSES/.
+
+Govdocs1 (Digital Corpora) (govdocs1)
+  Location: https://digitalcorpora.org/corpora/file-corpora/files/
+  Pinned:   xlsx: sha256 058ddd92e78d7c00d9b3ca624ad88b72b5e5a773e08dfbfcb467ccac00fe31da, pptx: sha256 5474e9f9d91680fe1b30630682142357534b35dc5b1bfe59783a3e6f4dddd043, docx: sha256 9c7ae9229b3bc53478a2399a8262140215548f8ebe5e2bd49e2f3a6a170b1ef6
+  License:  LicenseRef-Govdocs1-Public (LICENSES/LicenseRef-Govdocs1-Public.txt)
+  Corpus:   corpus/<format>/govdocs1/
+  Govdocs1 corpus, Digital Corpora (Garfinkel, Farrell, Roussev, Dinolt, 'Bringing science to digital forensics with standardized forensic corpora', DFRWS 2009). Documents were collected from publicly accessible U.S. government (.gov) web servers and are distributed by Digital Corpora as freely redistributable.
+
+Apache POI test-data (poi)
+  Location: https://github.com/apache/poi
+  Pinned:   9958a2a216c186064e931af57126ef4410562c02
+  License:  Apache-2.0 (LICENSES/Apache-2.0.txt, LICENSES/NOTICE-apache-poi.txt)
+  Corpus:   corpus/<format>/poi/
+  Apache POI, Copyright The Apache Software Foundation. Test documents from the apache/poi repository test-data directory.
+
+LibreOffice core QA test documents (libreoffice)
+  Location: https://github.com/LibreOffice/core
+  Pinned:   434f3ee8a5e8a7789de93a567cec274c4f2de6e9
+  License:  MPL-2.0 (LICENSES/MPL-2.0.txt)
+  Corpus:   corpus/<format>/libreoffice/
+  LibreOffice, Copyright The Document Foundation and contributors. Test documents from the LibreOffice core repository (sc/qa, sd/qa, sw/qa), distributed under the Mozilla Public License 2.0.
+
+openpyxl test data (openpyxl)
+  Location: https://foss.heptapod.net/openpyxl/openpyxl
+  Pinned:   c7b9026dab21c7fae28c45c2366c0fb3edc0319f
+  License:  MIT (LICENSES/MIT-openpyxl.txt)
+  Corpus:   corpus/<format>/openpyxl/
+  openpyxl, Copyright (c) 2010 openpyxl. Test workbooks from the openpyxl repository (branch 3.1).
+
+python-pptx test files (python-pptx)
+  Location: https://github.com/scanny/python-pptx
+  Pinned:   278b47b1dedd5b46ee84c286e77cdfb0bf4594be
+  License:  MIT (LICENSES/MIT-python-pptx.txt)
+  Corpus:   corpus/<format>/python-pptx/
+  python-pptx, Copyright (c) 2013 Steve Canny. Test presentations from the python-pptx repository.
+
+python-docx test files (python-docx)
+  Location: https://github.com/python-openxml/python-docx
+  Pinned:   e45454602b53e8e572b179ccf1c91093ec9f4ed7
+  License:  MIT (LICENSES/MIT-python-docx.txt)
+  Corpus:   corpus/<format>/python-docx/
+  python-docx, Copyright (c) 2013 Steve Canny. Test documents from the python-docx repository.
+
+Apache POI NOTICE (reproduced as required by Apache-2.0 section 4(d)) is in
+LICENSES/NOTICE-apache-poi.txt.
+
+LibreOffice test documents are covered by the MPL-2.0. Their Source Code Form
+is the file itself; the upstream location of each file is recorded in
+manifest.json.

@@ -1,0 +1,101 @@
+{
+  "schema": "officecorpus.sources/v1",
+  "sources": [
+    {
+      "id": "govdocs1",
+      "title": "Govdocs1 (Digital Corpora)",
+      "kind": "archive",
+      "homepage": "https://digitalcorpora.org/corpora/file-corpora/files/",
+      "archives": {
+        "xlsx": {"url": "https://downloads.digitalcorpora.org/corpora/files/govdocs1/by_type/xlsx.zip", "sha256": "058ddd92e78d7c00d9b3ca624ad88b72b5e5a773e08dfbfcb467ccac00fe31da"},
+        "pptx": {"url": "https://downloads.digitalcorpora.org/corpora/files/govdocs1/by_type/pptx.zip", "sha256": "5474e9f9d91680fe1b30630682142357534b35dc5b1bfe59783a3e6f4dddd043"},
+        "docx": {"url": "https://downloads.digitalcorpora.org/corpora/files/govdocs1/by_type/docx.zip", "sha256": "9c7ae9229b3bc53478a2399a8262140215548f8ebe5e2bd49e2f3a6a170b1ef6"}
+      },
+      "license": "LicenseRef-Govdocs1-Public",
+      "license_files": [],
+      "attribution": "Govdocs1 corpus, Digital Corpora (Garfinkel, Farrell, Roussev, Dinolt, 'Bringing science to digital forensics with standardized forensic corpora', DFRWS 2009). Documents were collected from publicly accessible U.S. government (.gov) web servers and are distributed by Digital Corpora as freely redistributable."
+    },
+    {
+      "id": "poi",
+      "title": "Apache POI test-data",
+      "kind": "git",
+      "repo": "https://github.com/apache/poi",
+      "commit": "9958a2a216c186064e931af57126ef4410562c02",
+      "paths": {"xlsx": ["test-data/spreadsheet"], "pptx": ["test-data/slideshow"], "docx": ["test-data/document"]},
+      "sparse": ["test-data/spreadsheet", "test-data/slideshow", "test-data/document", "legal"],
+      "license": "Apache-2.0",
+      "license_files": ["legal/LICENSE", "legal/NOTICE"],
+      "attribution": "Apache POI, Copyright The Apache Software Foundation. Test documents from the apache/poi repository test-data directory."
+    },
+    {
+      "id": "libreoffice",
+      "title": "LibreOffice core QA test documents",
+      "kind": "git",
+      "repo": "https://github.com/LibreOffice/core",
+      "commit": "434f3ee8a5e8a7789de93a567cec274c4f2de6e9",
+      "paths": {
+        "xlsx": ["sc/qa/unit/data/xlsx"],
+        "pptx": ["sd/qa/unit/data/pptx"],
+        "docx": ["sw/qa/extras/ooxmlexport/data", "sw/qa/extras/ooxmlimport/data"]
+      },
+      "sparse_patterns": [
+        "/sc/qa/unit/data/xlsx/*.xlsx",
+        "/sd/qa/unit/data/pptx/*.pptx",
+        "/sw/qa/extras/ooxmlexport/data/*.docx",
+        "/sw/qa/extras/ooxmlimport/data/*.docx",
+        "/COPYING.MPL"
+      ],
+      "license": "MPL-2.0",
+      "license_files": ["COPYING.MPL"],
+      "attribution": "LibreOffice, Copyright The Document Foundation and contributors. Test documents from the LibreOffice core repository (sc/qa, sd/qa, sw/qa), distributed under the Mozilla Public License 2.0."
+    },
+    {
+      "id": "openpyxl",
+      "title": "openpyxl test data",
+      "kind": "archive",
+      "repo": "https://foss.heptapod.net/openpyxl/openpyxl",
+      "commit": "c7b9026dab21c7fae28c45c2366c0fb3edc0319f",
+      "archives": {
+        "xlsx": {"url": "https://foss.heptapod.net/openpyxl/openpyxl/-/archive/c7b9026dab21c7fae28c45c2366c0fb3edc0319f/openpyxl.tar.gz", "strip_components": 1}
+      },
+      "paths": {"xlsx": ["openpyxl"]},
+      "license": "MIT",
+      "license_files": ["LICENCE.rst"],
+      "attribution": "openpyxl, Copyright (c) 2010 openpyxl. Test workbooks from the openpyxl repository (branch 3.1)."
+    },
+    {
+      "id": "python-pptx",
+      "title": "python-pptx test files",
+      "kind": "git",
+      "repo": "https://github.com/scanny/python-pptx",
+      "commit": "278b47b1dedd5b46ee84c286e77cdfb0bf4594be",
+      "paths": {"pptx": ["tests", "features"]},
+      "sparse": ["tests", "features", "LICENSE"],
+      "license": "MIT",
+      "license_files": ["LICENSE"],
+      "attribution": "python-pptx, Copyright (c) 2013 Steve Canny. Test presentations from the python-pptx repository."
+    },
+    {
+      "id": "python-docx",
+      "title": "python-docx test files",
+      "kind": "git",
+      "repo": "https://github.com/python-openxml/python-docx",
+      "commit": "e45454602b53e8e572b179ccf1c91093ec9f4ed7",
+      "paths": {"docx": ["tests", "features"]},
+      "sparse": ["tests", "features", "LICENSE"],
+      "license": "MIT",
+      "license_files": ["LICENSE"],
+      "attribution": "python-docx, Copyright (c) 2013 Steve Canny. Test documents from the python-docx repository."
+    }
+  ],
+  "selection": {
+    "per_format_target": 100,
+    "max_file_bytes": 10000000,
+    "quotas": {
+      "xlsx": {"govdocs1": 25, "poi": 30, "libreoffice": 30, "openpyxl": 15},
+      "pptx": {"govdocs1": 30, "poi": 20, "libreoffice": 30, "python-pptx": 20},
+      "docx": {"govdocs1": 30, "poi": 20, "libreoffice": 30, "python-docx": 20}
+    },
+    "source_order": ["govdocs1", "poi", "libreoffice", "openpyxl", "python-pptx", "python-docx"]
+  }
+}

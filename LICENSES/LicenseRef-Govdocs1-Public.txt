@@ -1,0 +1,15 @@
+Govdocs1 redistribution statement (LicenseRef-Govdocs1-Public)
+
+Source: https://digitalcorpora.org/corpora/file-corpora/files/
+
+Digital Corpora describes Govdocs1 as "a corpus of 1 million documents that are
+freely available for research and may be (to the best of our knowledge) freely
+redistributed." The documents were collected from publicly accessible web
+servers in the .gov domain. Works of the U.S. federal government are not subject
+to copyright in the United States (17 U.S.C. 105); documents from state or local
+government servers may carry other terms, and Digital Corpora's statement above
+is the basis on which this corpus redistributes them.
+
+Citation: Simson Garfinkel, Paul Farrell, Vassil Roussev, and George Dinolt,
+"Bringing Science to Digital Forensics with Standardized Forensic Corpora",
+DFRWS 2009, Montreal, Canada.

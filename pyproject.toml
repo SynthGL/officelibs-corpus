@@ -1,0 +1,26 @@
+[project]
+name = "officecorpus"
+version = "0.1.0"
+description = "Real-world OOXML corpus and one-edit round-trip lane for officelibs.com."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "lxml==6.1.3",
+  "numpy==2.5.3",
+  "pymupdf==1.28.2",
+]
+
+[project.scripts]
+officecorpus = "officecorpus.cli:main"
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/officecorpus"]
+
+[tool.ruff.lint.per-file-ignores]
+# model/xlsx.py is sha-pinned (ExcelBench vendors it byte for byte), so lint findings
+# in it are ignored, not fixed. Excel serial dates are timezone-naive by definition (DTZ001).
+"src/officecorpus/model/xlsx.py" = ["SIM905", "DTZ001"]

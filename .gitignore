@@ -1,0 +1,9 @@
+.upstream/
+.envs/
+.cache/
+.venv/
+__pycache__/
+*.pyc
+adapters/node/node_modules/
+evidence/**/work/
+evidence/**/*.log

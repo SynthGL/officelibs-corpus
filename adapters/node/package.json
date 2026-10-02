@@ -1,0 +1,10 @@
+{
+  "name": "officecorpus-node-adapters",
+  "private": true,
+  "description": "Pinned Node.js adapters for the officecorpus round-trip lane",
+  "dependencies": {
+    "exceljs": "4.4.0",
+    "pptx-automizer": "0.9.4",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  }
+}
