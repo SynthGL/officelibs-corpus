@@ -13,11 +13,13 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
 import tarfile
 import tempfile
+import urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -305,7 +307,7 @@ ADAPTERS: tuple[AdapterSpec, ...] = (
             "n-th direct R of P.getContent(), R.getContent() cleared and one Text added (rPr kept); "
             "save(File)"
         ),
-        image="officecorpus/docx4j:17.2.1",
+        image="officecorpus/docx4j:17.3.0",
         helper="adapters/jvm/docx4j",
     ),
     AdapterSpec(
@@ -462,6 +464,66 @@ def _freeze(python: Path) -> list[str]:
     )
 
 
+_INSTALLED = """
+import json, sys
+from importlib import metadata
+dist = metadata.distribution(sys.argv[1])
+wheel = dist.read_text("WHEEL") or ""
+tags = [l.split(":", 1)[1].strip() for l in wheel.splitlines() if l.startswith("Tag:")]
+print(json.dumps({"version": dist.version, "tags": tags}))
+"""
+
+
+def _wheel_tags(filename: str) -> set[str]:
+    python, abi, platform = filename.removesuffix(".whl").split("-")[-3:]
+    return {
+        f"{p}-{a}-{t}"
+        for p in python.split(".")
+        for a in abi.split(".")
+        for t in platform.split(".")
+    }
+
+
+def _pypi_artifact(python: Path, requirement: str) -> dict[str, Any]:
+    """The PyPI file the environment installed for `requirement`, hashed here.
+
+    The installed version and wheel tags select the release file from the PyPI JSON
+    API; the file is downloaded and its SHA-256 must equal PyPI's digest.
+    """
+    name = re.split(r"[=<>!~\[; ]", requirement, maxsplit=1)[0]
+    installed = json.loads(_run([str(python), "-c", _INSTALLED, name]).stdout)
+    url = f"https://pypi.org/pypi/{name}/{installed['version']}/json"
+    with urllib.request.urlopen(url, timeout=60) as response:
+        files = json.load(response)["urls"]
+    tags = set(installed["tags"])
+    matches = [
+        f
+        for f in files
+        if f["packagetype"] == "bdist_wheel" and _wheel_tags(f["filename"]) & tags
+    ] or [f for f in files if f["packagetype"] == "sdist"]
+    if len(matches) != 1:
+        raise RuntimeError(
+            f"{name} {installed['version']}: {len(matches)} PyPI files match the "
+            f"installed wheel tags {sorted(tags)}"
+        )
+    chosen = matches[0]
+    digest = hashlib.sha256()
+    with urllib.request.urlopen(chosen["url"], timeout=300) as response:
+        for chunk in iter(lambda: response.read(1 << 20), b""):
+            digest.update(chunk)
+    if digest.hexdigest() != chosen["digests"]["sha256"]:
+        raise RuntimeError(f"{chosen['filename']}: SHA-256 differs from PyPI's digest")
+    return {
+        "distribution": name,
+        "version": installed["version"],
+        "index": "https://pypi.org/simple",
+        "filename": chosen["filename"],
+        "packagetype": chosen["packagetype"],
+        "sha256": digest.hexdigest(),
+        "url": chosen["url"],
+    }
+
+
 def prepare(root: Path, spec: AdapterSpec) -> Prepared:
     """Provision the adapter (fresh environment) and return its identity receipt."""
     try:
@@ -486,6 +548,9 @@ def prepare(root: Path, spec: AdapterSpec) -> Prepared:
                         *spec.install,
                     ]
                 )
+                receipt["pypi_artifacts"] = [
+                    _pypi_artifact(python, requirement) for requirement in spec.install
+                ]
             receipt["environment_packages"] = _freeze(python)
             receipt["python"] = _run(
                 [str(python), "-c", "import sys; print(sys.version.split()[0])"]
